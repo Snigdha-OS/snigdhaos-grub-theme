@@ -17,7 +17,7 @@ terminal-border: "0"
     height = 35
     left = 0%
     width = 100%
-    text = "Welcome to Garuda"
+    text = "Welcome to Snigdha OS"
     align = "center"
     font = "DejaVu Sans Regular 48"
     color = "#ffffff"
