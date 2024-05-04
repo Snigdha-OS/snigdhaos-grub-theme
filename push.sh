@@ -1,27 +1,32 @@
 #!/bin/bash
 
-# Author        : Eshan Roy <eshan@snigdhaos.org>
-# Author URI    : https://eshanized.github.io/
+# Author    : Eshan Roy
+# URI       : https://eshanized.github.io
 
-# NOTE: REPO = Your Repository Name On the Host
-# NOTE: ORG =  Your ORGANIZATION NAME or USERNAME
-# NOTE: HOST = GitHub, Gitlab, Bitbucket etc.  
+# NOTE: If you are on Snigdha OS,
+# you can install commitizen-go with `sudo pacman -S commitizen-go`
+# or `s commitizen-go`. Else you need to install `yay` or `yay-bin`
+# to install commitizen. I have written this script only for *Arch Linux.
 
-# Repo Config
-REPO=snigdhaos-grub-theme
-# Host Config
-HOST=https://github.com
-# Destination Config
-ORG=Snigdha-OS
+# Function to check if Commitizen is installed
+check_commitizen() {
+    if ! pacman -Qq commitizen-go &> /dev/null; then
+        echo "Commitizen is not installed. Please install it using 'yay -S commitizen-go'." >&2
+        exit 1
+    fi
+}
 
-# Set the repository URL and branch
-REPO_URL="${HOST}/${ORG}/${REPO}.git"
-BRANCH="master"  # or "main" depending on your repository's default branch
+# Function to stage, commit, and push changes
+push_to_github() {
+    git add .
+    git cz
+    git push origin master
+}
 
-# Commit message
-MESSAGE="@eshanized: push via script"
+# Main Function
+main() {
+    check_commitizen
+    push_to_github
+}
 
-# Add all files, commit, and push changes
-git add .
-git commit -m "$MESSAGE"
-git push origin $BRANCH
+main
